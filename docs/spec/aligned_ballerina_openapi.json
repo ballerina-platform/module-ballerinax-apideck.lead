@@ -1,0 +1,3974 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Lead API",
+        "description": "The Apideck Lead API lets you create, read, update, delete and list leads across CRM integrations through Apideck Unify, using a single unified data model.",
+        "contact": {
+            "url": "https://developers.apideck.com",
+            "email": "hello@apideck.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "10.63.0",
+        "x-logo": {
+            "url": "https://developers.apideck.com/icon.png"
+        },
+        "x-apideck-api": "lead",
+        "x-apideck-sdk-support": true
+    },
+    "externalDocs": {
+        "description": "Apideck Developer Docs",
+        "url": "https://developers.apideck.com"
+    },
+    "servers": [
+        {
+            "url": "https://unify.apideck.com/lead",
+            "description": "Production"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Leads",
+            "description": "A Lead represents a potential customer, including name, contact details, company, source, status, and associated opportunities.",
+            "x-apideck-resource-id": "leads",
+            "x-apideck-model": {
+                "$ref": "#/components/schemas/Lead"
+            }
+        }
+    ],
+    "paths": {
+        "/leads": {
+            "get": {
+                "tags": [
+                    "Leads"
+                ],
+                "summary": "List leads",
+                "description": "List leads",
+                "operationId": "listLeads",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/raw"
+                    },
+                    {
+                        "$ref": "#/components/parameters/consumerId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/authorization"
+                    },
+                    {
+                        "$ref": "#/components/parameters/applicationId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/serviceId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/cursor"
+                    },
+                    {
+                        "$ref": "#/components/parameters/limit"
+                    },
+                    {
+                        "$ref": "#/components/parameters/leadsFilter"
+                    },
+                    {
+                        "$ref": "#/components/parameters/leadsSort"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/GetLeadsResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "402": {
+                        "$ref": "#/components/responses/PaymentRequiredResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableResponse"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedErrorResponse"
+                    }
+                },
+                "x-apideck-api": "lead",
+                "x-codeSamples": [
+                    {
+                        "lang": "TypeScript",
+                        "label": "Node",
+                        "source": {}
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Leads"
+                ],
+                "summary": "Create lead",
+                "description": "Create lead",
+                "operationId": "createLead",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/raw"
+                    },
+                    {
+                        "$ref": "#/components/parameters/consumerId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/authorization"
+                    },
+                    {
+                        "$ref": "#/components/parameters/applicationId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/serviceId"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Lead"
+                            }
+                        }
+                    },
+                    "required": true,
+                    "description": "Details of the lead to create"
+                },
+                "responses": {
+                    "201": {
+                        "$ref": "#/components/responses/CreateLeadResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "402": {
+                        "$ref": "#/components/responses/PaymentRequiredResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableResponse"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedErrorResponse"
+                    }
+                },
+                "x-apideck-api": "lead",
+                "x-codeSamples": [
+                    {
+                        "lang": "TypeScript",
+                        "label": "Node",
+                        "source": {
+                            "lead": {
+                                "name": "Elon Musk",
+                                "company_name": "Spacex",
+                                "owner_id": "54321",
+                                "owner_name": "John Doe",
+                                "company_id": "2",
+                                "contact_id": "3",
+                                "lead_id": "2",
+                                "lead_source": "Cold Call",
+                                "first_name": "Elon",
+                                "last_name": "Musk",
+                                "description": "A thinker",
+                                "prefix": "Sir",
+                                "title": "CEO",
+                                "language": "EN",
+                                "status": "New",
+                                "monetary_amount": 75000,
+                                "currency": "USD",
+                                "fax": "+12129876543",
+                                "websites": [
+                                    {
+                                        "id": "12345",
+                                        "url": "http://example.com",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "addresses": [
+                                    {
+                                        "id": "123",
+                                        "type": "primary",
+                                        "string": "25 Spring Street, Blackburn, VIC 3130",
+                                        "name": "HQ US",
+                                        "line1": "Main street",
+                                        "line2": "apt #",
+                                        "line3": "Suite #",
+                                        "line4": "delivery instructions",
+                                        "line5": "Attention: Finance Dept",
+                                        "street_number": "25",
+                                        "city": "San Francisco",
+                                        "state": "CA",
+                                        "postal_code": "94104",
+                                        "country": "US",
+                                        "latitude": "40.759211",
+                                        "longitude": "-73.984638",
+                                        "county": "Santa Clara",
+                                        "contact_name": "Elon Musk",
+                                        "salutation": "Mr",
+                                        "phone_number": "111-111-1111",
+                                        "fax": "122-111-1111",
+                                        "email": "elon@musk.com",
+                                        "website": "https://elonmusk.com",
+                                        "notes": "Address notes or delivery instructions.",
+                                        "row_version": "1-12345"
+                                    }
+                                ],
+                                "social_links": [
+                                    {
+                                        "id": "12345",
+                                        "url": "https://www.twitter.com/apideck",
+                                        "type": "twitter"
+                                    }
+                                ],
+                                "phone_numbers": [
+                                    {
+                                        "id": "12345",
+                                        "country_code": "1",
+                                        "area_code": "323",
+                                        "number": "111-111-1111",
+                                        "extension": "105",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "emails": [
+                                    {
+                                        "id": "123",
+                                        "email": "elon@musk.com",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "custom_fields": [
+                                    {
+                                        "id": "2389328923893298",
+                                        "name": "employee_level",
+                                        "ref_name": "Marketing",
+                                        "description": "Employee Level",
+                                        "value": "Uses Salesforce and Marketo"
+                                    }
+                                ],
+                                "tags": [
+                                    "New"
+                                ],
+                                "pass_through": [
+                                    {
+                                        "service_id": "string",
+                                        "operation_id": "string",
+                                        "extend_object": {},
+                                        "extend_paths": [
+                                            {
+                                                "path": "$.nested.property",
+                                                "value": {
+                                                    "TaxClassificationRef": {
+                                                        "value": "EUC-99990201-V1-00020000"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "/leads/{id}": {
+            "get": {
+                "tags": [
+                    "Leads"
+                ],
+                "summary": "Get lead",
+                "description": "Get lead",
+                "operationId": "getLead",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/consumerId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/authorization"
+                    },
+                    {
+                        "$ref": "#/components/parameters/applicationId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/serviceId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/raw"
+                    },
+                    {
+                        "$ref": "#/components/parameters/fields"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/GetLeadResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "402": {
+                        "$ref": "#/components/responses/PaymentRequiredResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableResponse"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedErrorResponse"
+                    }
+                },
+                "x-apideck-api": "lead",
+                "x-codeSamples": [
+                    {
+                        "lang": "TypeScript",
+                        "label": "Node",
+                        "source": {
+                            "id": "id_example"
+                        }
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Leads"
+                ],
+                "summary": "Delete lead",
+                "description": "Delete lead",
+                "operationId": "deleteLead",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/consumerId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/authorization"
+                    },
+                    {
+                        "$ref": "#/components/parameters/applicationId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/serviceId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/raw"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/DeleteLeadResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "402": {
+                        "$ref": "#/components/responses/PaymentRequiredResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableResponse"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedErrorResponse"
+                    }
+                },
+                "x-apideck-api": "lead",
+                "x-codeSamples": [
+                    {
+                        "lang": "TypeScript",
+                        "label": "Node",
+                        "source": {
+                            "id": "id_example"
+                        }
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Leads"
+                ],
+                "summary": "Update lead",
+                "description": "Update lead",
+                "operationId": "updateLead",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/id"
+                    },
+                    {
+                        "$ref": "#/components/parameters/consumerId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/authorization"
+                    },
+                    {
+                        "$ref": "#/components/parameters/applicationId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/serviceId"
+                    },
+                    {
+                        "$ref": "#/components/parameters/raw"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Lead"
+                            }
+                        }
+                    },
+                    "required": true,
+                    "description": "Lead fields to update"
+                },
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/UpdateLeadResponse"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/BadRequestResponse"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/UnauthorizedResponse"
+                    },
+                    "402": {
+                        "$ref": "#/components/responses/PaymentRequiredResponse"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/NotFoundResponse"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/UnprocessableResponse"
+                    },
+                    "default": {
+                        "$ref": "#/components/responses/UnexpectedErrorResponse"
+                    }
+                },
+                "x-apideck-api": "lead",
+                "x-codeSamples": [
+                    {
+                        "lang": "TypeScript",
+                        "label": "Node",
+                        "source": {
+                            "id": "id_example",
+                            "lead": {
+                                "name": "Elon Musk",
+                                "company_name": "Spacex",
+                                "owner_id": "54321",
+                                "owner_name": "John Doe",
+                                "company_id": "2",
+                                "contact_id": "3",
+                                "lead_id": "2",
+                                "lead_source": "Cold Call",
+                                "first_name": "Elon",
+                                "last_name": "Musk",
+                                "description": "A thinker",
+                                "prefix": "Sir",
+                                "title": "CEO",
+                                "language": "EN",
+                                "status": "New",
+                                "monetary_amount": 75000,
+                                "currency": "USD",
+                                "fax": "+12129876543",
+                                "websites": [
+                                    {
+                                        "id": "12345",
+                                        "url": "http://example.com",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "addresses": [
+                                    {
+                                        "id": "123",
+                                        "type": "primary",
+                                        "string": "25 Spring Street, Blackburn, VIC 3130",
+                                        "name": "HQ US",
+                                        "line1": "Main street",
+                                        "line2": "apt #",
+                                        "line3": "Suite #",
+                                        "line4": "delivery instructions",
+                                        "line5": "Attention: Finance Dept",
+                                        "street_number": "25",
+                                        "city": "San Francisco",
+                                        "state": "CA",
+                                        "postal_code": "94104",
+                                        "country": "US",
+                                        "latitude": "40.759211",
+                                        "longitude": "-73.984638",
+                                        "county": "Santa Clara",
+                                        "contact_name": "Elon Musk",
+                                        "salutation": "Mr",
+                                        "phone_number": "111-111-1111",
+                                        "fax": "122-111-1111",
+                                        "email": "elon@musk.com",
+                                        "website": "https://elonmusk.com",
+                                        "notes": "Address notes or delivery instructions.",
+                                        "row_version": "1-12345"
+                                    }
+                                ],
+                                "social_links": [
+                                    {
+                                        "id": "12345",
+                                        "url": "https://www.twitter.com/apideck",
+                                        "type": "twitter"
+                                    }
+                                ],
+                                "phone_numbers": [
+                                    {
+                                        "id": "12345",
+                                        "country_code": "1",
+                                        "area_code": "323",
+                                        "number": "111-111-1111",
+                                        "extension": "105",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "emails": [
+                                    {
+                                        "id": "123",
+                                        "email": "elon@musk.com",
+                                        "type": "primary"
+                                    }
+                                ],
+                                "custom_fields": [
+                                    {
+                                        "id": "2389328923893298",
+                                        "name": "employee_level",
+                                        "ref_name": "Marketing",
+                                        "description": "Employee Level",
+                                        "value": "Uses Salesforce and Marketo"
+                                    }
+                                ],
+                                "tags": [
+                                    "New"
+                                ],
+                                "pass_through": [
+                                    {
+                                        "service_id": "string",
+                                        "operation_id": "string",
+                                        "extend_object": {},
+                                        "extend_paths": [
+                                            {
+                                                "path": "$.nested.property",
+                                                "value": {
+                                                    "TaxClassificationRef": {
+                                                        "value": "EUC-99990201-V1-00020000"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "DeleteLeadResponse": {
+                "required": [
+                    "data",
+                    "operation",
+                    "resource",
+                    "service",
+                    "status",
+                    "status_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP Response Status Code",
+                        "example": 200,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/UnifiedId"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Unified API resource name",
+                        "example": "companies"
+                    },
+                    "_raw": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Raw"
+                            }
+                        ],
+                        "x-ballerina-name": "raw"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Apideck ID of service provider",
+                        "example": "zoho-crm"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Operation performed",
+                        "example": "delete"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "HTTP Response Status",
+                        "example": "OK"
+                    }
+                },
+                "x-apideck-schema-id": "DeleteLeadResponse"
+            },
+            "UnifiedId": {
+                "title": "UnifiedId",
+                "required": [
+                    "id"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "Id",
+                        "type": "string",
+                        "description": "The unique identifier of the resource",
+                        "readOnly": true,
+                        "example": "12345"
+                    }
+                },
+                "description": "A object containing a unique identifier for the resource that was created, updated, or deleted",
+                "x-apideck-schema-id": "Id"
+            },
+            "GetLeadResponse": {
+                "required": [
+                    "data",
+                    "operation",
+                    "resource",
+                    "service",
+                    "status",
+                    "status_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP Response Status Code",
+                        "example": 200,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/Lead"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Unified API resource name",
+                        "example": "companies"
+                    },
+                    "_raw": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Raw"
+                            }
+                        ],
+                        "x-ballerina-name": "raw"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Apideck ID of service provider",
+                        "example": "zoho-crm"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/Meta"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Operation performed",
+                        "example": "one"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "HTTP Response Status",
+                        "example": "OK"
+                    }
+                },
+                "x-apideck-schema-id": "GetLeadResponse"
+            },
+            "Meta": {
+                "type": "object",
+                "properties": {
+                    "items_on_page": {
+                        "type": "integer",
+                        "description": "Number of items returned in the data property of the response",
+                        "example": 50,
+                        "x-ballerina-name": "itemsOnPage"
+                    },
+                    "cursors": {
+                        "$ref": "#/components/schemas/MetaCursors"
+                    },
+                    "total_count": {
+                        "type": "integer",
+                        "description": "Number of records available in total for this resource",
+                        "example": 1,
+                        "x-ballerina-name": "totalCount"
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "description": "Non-fatal warnings emitted when optional workflow steps failed. Present only when at least one step degraded; the response status remains 200",
+                        "nullable": true,
+                        "items": {
+                            "$ref": "#/components/schemas/MetaWarnings"
+                        }
+                    }
+                },
+                "description": "Response metadata",
+                "x-apideck-schema-id": "Meta"
+            },
+            "Email": {
+                "required": [
+                    "email"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the email address",
+                        "nullable": true,
+                        "example": "123"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Email type",
+                        "nullable": true,
+                        "example": "primary",
+                        "enum": [
+                            "primary",
+                            "secondary",
+                            "work",
+                            "personal",
+                            "billing",
+                            "other"
+                        ],
+                        "x-apideck-enum-id": "emails.type"
+                    },
+                    "email": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "Email address",
+                        "format": "email",
+                        "nullable": true,
+                        "example": "elon@musk.com"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "Email",
+                "x-apideck-weights": {
+                    "email": "critical",
+                    "type": "critical",
+                    "id": "edge-case"
+                }
+            },
+            "PassThroughBody": {
+                "type": "array",
+                "description": "The pass_through property allows passing service-specific, custom data or structured modifications in request body when creating or updating resources",
+                "items": {
+                    "$ref": "#/components/schemas/PassThroughItem"
+                }
+            },
+            "Address": {
+                "type": "object",
+                "properties": {
+                    "country": {
+                        "type": "string",
+                        "description": "country code according to ISO 3166-1 alpha-2",
+                        "nullable": true,
+                        "example": "US"
+                    },
+                    "notes": {
+                        "title": "Notes",
+                        "type": "string",
+                        "description": "Additional notes",
+                        "nullable": true,
+                        "example": "Address notes or delivery instructions."
+                    },
+                    "string": {
+                        "type": "string",
+                        "description": "The address string. Some APIs don't provide structured address data",
+                        "nullable": true,
+                        "example": "25 Spring Street, Blackburn, VIC 3130"
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "Name of city",
+                        "nullable": true,
+                        "example": "San Francisco"
+                    },
+                    "latitude": {
+                        "type": "string",
+                        "description": "Latitude of the address",
+                        "nullable": true,
+                        "example": "40.759211"
+                    },
+                    "county": {
+                        "type": "string",
+                        "description": "Address field that holds a sublocality, such as a county",
+                        "nullable": true,
+                        "example": "Santa Clara"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of address",
+                        "nullable": true,
+                        "example": "primary",
+                        "enum": [
+                            "primary",
+                            "secondary",
+                            "home",
+                            "office",
+                            "shipping",
+                            "billing",
+                            "work",
+                            "other"
+                        ],
+                        "x-apideck-enum-id": "addresses.type"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the address",
+                        "nullable": true,
+                        "example": "123"
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "Name of state",
+                        "nullable": true,
+                        "example": "CA"
+                    },
+                    "line3": {
+                        "type": "string",
+                        "description": "Line 3 of the address",
+                        "nullable": true,
+                        "example": "Suite #"
+                    },
+                    "fax": {
+                        "type": "string",
+                        "description": "Fax number of the address",
+                        "nullable": true,
+                        "example": "122-111-1111"
+                    },
+                    "line2": {
+                        "type": "string",
+                        "description": "Line 2 of the address",
+                        "nullable": true,
+                        "example": "apt #"
+                    },
+                    "line1": {
+                        "type": "string",
+                        "description": "Line 1 of the address e.g. number, street, suite, apt #, etc",
+                        "nullable": true,
+                        "example": "Main street"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Email address of the address",
+                        "nullable": true,
+                        "example": "elon@musk.com"
+                    },
+                    "longitude": {
+                        "type": "string",
+                        "description": "Longitude of the address",
+                        "nullable": true,
+                        "example": "-73.984638"
+                    },
+                    "line5": {
+                        "type": "string",
+                        "description": "Line 5 of the address",
+                        "nullable": true,
+                        "example": "Attention: Finance Dept"
+                    },
+                    "contact_name": {
+                        "type": "string",
+                        "description": "Name of the contact person at the address",
+                        "nullable": true,
+                        "example": "Elon Musk",
+                        "x-ballerina-name": "contactName"
+                    },
+                    "website": {
+                        "type": "string",
+                        "description": "Website of the address",
+                        "nullable": true,
+                        "example": "https://elonmusk.com"
+                    },
+                    "line4": {
+                        "type": "string",
+                        "description": "Line 4 of the address",
+                        "nullable": true,
+                        "example": "delivery instructions"
+                    },
+                    "row_version": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/RowVersion"
+                            }
+                        ],
+                        "x-ballerina-name": "rowVersion"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the address",
+                        "nullable": true,
+                        "example": "HQ US"
+                    },
+                    "street_number": {
+                        "type": "string",
+                        "description": "Street number",
+                        "nullable": true,
+                        "example": "25",
+                        "x-ballerina-name": "streetNumber"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone number of the address",
+                        "nullable": true,
+                        "example": "111-111-1111",
+                        "x-ballerina-name": "phoneNumber"
+                    },
+                    "salutation": {
+                        "type": "string",
+                        "description": "Salutation of the contact person at the address",
+                        "nullable": true,
+                        "example": "Mr"
+                    },
+                    "postal_code": {
+                        "type": "string",
+                        "description": "Zip code or equivalent",
+                        "nullable": true,
+                        "example": "94104",
+                        "x-ballerina-name": "postalCode"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "Address",
+                "x-apideck-weights": {
+                    "id": "edge-case",
+                    "name": "edge-case",
+                    "type": "critical",
+                    "line1": "high",
+                    "line2": "low",
+                    "line3": "edge-case",
+                    "line4": "edge-case",
+                    "line5": "edge-case",
+                    "street_number": "low",
+                    "city": "high",
+                    "string": "low",
+                    "state": "high",
+                    "postal_code": "high",
+                    "country": "high",
+                    "latitude": "low",
+                    "longitude": "low",
+                    "county": "edge-case",
+                    "contact_name": "edge-case",
+                    "salutation": "edge-case",
+                    "phone_number": "edge-case",
+                    "fax": "edge-case",
+                    "email": "edge-case",
+                    "website": "edge-case",
+                    "row_version": "edge-case"
+                }
+            },
+            "BadRequestResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "RequestValidationError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#requestvalidationerror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 400,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Missing property foobar"
+                            },
+                            {
+                                "type": "object",
+                                "example": {
+                                    "missing": [
+                                        {
+                                            "foobar": "required"
+                                        }
+                                    ]
+                                },
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Bad Request"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Invalid Params",
+                        "x-speakeasy-error-message": true
+                    },
+                    "downstream_errors": {
+                        "type": "array",
+                        "description": "Contains downstream errors returned from the connector. Only present when type_name is ConnectorExecutionError",
+                        "example": [
+                            {
+                                "message": "Account code '100' has been archived or deleted",
+                                "detail": "Each line item must reference a valid account",
+                                "code": "VALIDATION_ERROR"
+                            }
+                        ],
+                        "items": {
+                            "$ref": "#/components/schemas/BadRequestResponseDownstreamErrors"
+                        },
+                        "x-ballerina-name": "downstreamErrors"
+                    }
+                },
+                "x-apideck-schema-id": "BadRequest"
+            },
+            "MetaCursors": {
+                "type": "object",
+                "properties": {
+                    "next": {
+                        "type": "string",
+                        "description": "Cursor to navigate to the next page of results through the API",
+                        "nullable": true,
+                        "example": "em9oby1jcm06OnBhZ2U6OjM="
+                    },
+                    "current": {
+                        "type": "string",
+                        "description": "Cursor to navigate to the current page of results through the API",
+                        "nullable": true,
+                        "example": "em9oby1jcm06OnBhZ2U6OjI="
+                    },
+                    "previous": {
+                        "type": "string",
+                        "description": "Cursor to navigate to the previous page of results through the API",
+                        "nullable": true,
+                        "example": "em9oby1jcm06OnBhZ2U6OjE="
+                    }
+                },
+                "description": "Cursors to navigate to previous or next pages through the API"
+            },
+            "TooManyRequestsResponseDetail": {
+                "type": "object",
+                "properties": {
+                    "context": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "object",
+                        "x-speakeasy-detail": true
+                    }
+                }
+            },
+            "Website": {
+                "required": [
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the website",
+                        "nullable": true,
+                        "example": "12345"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of website",
+                        "nullable": true,
+                        "example": "primary",
+                        "enum": [
+                            "primary",
+                            "secondary",
+                            "work",
+                            "personal",
+                            "other"
+                        ],
+                        "x-apideck-enum-id": "websites.type"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The website URL",
+                        "example": "http://example.com"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "Website",
+                "x-apideck-weights": {
+                    "url": "critical",
+                    "type": "critical",
+                    "id": "edge-case"
+                }
+            },
+            "Raw": {
+                "title": "raw",
+                "type": "object",
+                "additionalProperties": true,
+                "description": "Raw response from the integration when raw=true query param is provided",
+                "nullable": true,
+                "x-apideck-schema-id": "Raw"
+            },
+            "GetLeadsResponse": {
+                "required": [
+                    "data",
+                    "operation",
+                    "resource",
+                    "service",
+                    "status",
+                    "status_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP Response Status Code",
+                        "example": 200,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Lead"
+                        }
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Unified API resource name",
+                        "example": "companies"
+                    },
+                    "_raw": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Raw"
+                            }
+                        ],
+                        "x-ballerina-name": "raw"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Apideck ID of service provider",
+                        "example": "zoho-crm"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/Meta"
+                    },
+                    "links": {
+                        "$ref": "#/components/schemas/Links"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Operation performed",
+                        "example": "all"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "HTTP Response Status",
+                        "example": "OK"
+                    }
+                },
+                "x-apideck-schema-id": "GetLeadsResponse"
+            },
+            "PaymentRequiredResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "RequestLimitError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#requestlimiterror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 402,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "example": "You have reached your limit of 2000"
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Payment Required"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Request Limit Reached",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "PaymentRequired"
+            },
+            "UnprocessableResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "InvalidStateError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#invalidstateerror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 422,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Unprocessable request, please verify your request headers and body."
+                            },
+                            {
+                                "type": "object",
+                                "example": {
+                                    "error": "Unprocessable",
+                                    "message": "Unprocessable request, please verify your request headers and body."
+                                },
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Unprocessable Entity"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Invalid State",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "Unprocessable"
+            },
+            "UnauthorizedResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "UnauthorizedError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#unauthorizederror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 401,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Missing authentication"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "type": {
+                                        "type": "string",
+                                        "description": "Error type identifier",
+                                        "example": "refresh_token_connector_error"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "description": "Detailed error message",
+                                        "example": "Token refresh failed"
+                                    },
+                                    "debug": {
+                                        "type": "object",
+                                        "properties": {
+                                            "request": {
+                                                "type": "object",
+                                                "description": "HTTP request details"
+                                            },
+                                            "response": {
+                                                "type": "object",
+                                                "description": "HTTP response details"
+                                            },
+                                            "message": {
+                                                "type": "string",
+                                                "description": "Error message from downstream provider or network layer"
+                                            },
+                                            "code": {
+                                                "type": "string",
+                                                "description": "Error code (e.g., ETIMEDOUT, ECONNREFUSED)"
+                                            },
+                                            "credentials_expire_at_ms": {
+                                                "type": "number",
+                                                "description": "Unix timestamp (milliseconds) when credentials will be deleted if not refreshed. Only present for non-recoverable errors (401, 400). Credentials are preserved indefinitely for recoverable/network errors.",
+                                                "example": 1620172800000
+                                            },
+                                            "retry_after_ms": {
+                                                "type": "number",
+                                                "description": "Unix timestamp (milliseconds) when token refresh retry is allowed after cooldown period expires.",
+                                                "example": 1620000030000
+                                            },
+                                            "cooldown_remaining_ms": {
+                                                "type": "number",
+                                                "description": "Milliseconds remaining in cooldown period before retry is allowed.",
+                                                "example": 30000
+                                            }
+                                        },
+                                        "description": "Debug information including request/response details and OAuth timing metadata"
+                                    }
+                                },
+                                "example": {
+                                    "type": "refresh_token_connector_error",
+                                    "message": "Token refresh failed with 401 error",
+                                    "debug": {
+                                        "response": {
+                                            "statusCode": 401,
+                                            "data": {
+                                                "error": "invalid_grant"
+                                            }
+                                        },
+                                        "credentials_expire_at_ms": 1620172800000,
+                                        "retry_after_ms": 1620000030000,
+                                        "cooldown_remaining_ms": 30000
+                                    }
+                                },
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Unauthorized"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Unauthorized Request",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "Unauthorized"
+            },
+            "NotImplementedResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "MappingError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#mappingerror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 501,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Failed to retrieve Widget tokenUrl from 'components.securitySchemes.OAuth2.flows'"
+                            },
+                            {
+                                "type": "object",
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Not Implemented"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Unmapped Attribute",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "NotImplemented"
+            },
+            "LeadsFilter": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Name of the lead to filter on",
+                        "example": "Elon Musk"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "Last name of the lead to filter on",
+                        "example": "Musk",
+                        "x-ballerina-name": "lastName"
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "description": "Phone number of the lead to filter on",
+                        "example": "1234567890",
+                        "x-ballerina-name": "phoneNumber"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "First name of the lead to filter on",
+                        "example": "Elon",
+                        "x-ballerina-name": "firstName"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "E-mail of the lead to filter on",
+                        "example": "elon@tesla.com"
+                    }
+                },
+                "additionalProperties": false,
+                "example": {
+                    "first_name": "Elon",
+                    "last_name": "Musk",
+                    "email": "elon@tesla.com",
+                    "phone_number": "1234567890"
+                },
+                "x-apideck-schema-id": "LeadsFilter"
+            },
+            "SortDirection": {
+                "type": "string",
+                "description": "The direction in which to sort the results",
+                "default": "asc",
+                "enum": [
+                    "asc",
+                    "desc"
+                ],
+                "x-apideck-schema-id": "SortDirection",
+                "x-apideck-enum-id": "sort_direction"
+            },
+            "LeadWebhookEvent": {
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/WebhookEventBase"
+                    },
+                    {
+                        "$ref": "#/components/schemas/LeadWebhookEventTypeInfo"
+                    }
+                ],
+                "x-sdk-exclude": true
+            },
+            "Currency": {
+                "title": "Currency",
+                "type": "string",
+                "description": "Indicates the associated currency for an amount of money. Values correspond to [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217)",
+                "nullable": true,
+                "example": "USD",
+                "enum": [
+                    "UNKNOWN_CURRENCY",
+                    "AED",
+                    "AFN",
+                    "ALL",
+                    "AMD",
+                    "ANG",
+                    "AOA",
+                    "ARS",
+                    "AUD",
+                    "AWG",
+                    "AZN",
+                    "BAM",
+                    "BBD",
+                    "BDT",
+                    "BGN",
+                    "BHD",
+                    "BIF",
+                    "BMD",
+                    "BND",
+                    "BOB",
+                    "BOV",
+                    "BRL",
+                    "BSD",
+                    "BTN",
+                    "BWP",
+                    "BYR",
+                    "BZD",
+                    "CAD",
+                    "CDF",
+                    "CHE",
+                    "CHF",
+                    "CHW",
+                    "CLF",
+                    "CLP",
+                    "CNY",
+                    "COP",
+                    "COU",
+                    "CRC",
+                    "CUC",
+                    "CUP",
+                    "CVE",
+                    "CZK",
+                    "DJF",
+                    "DKK",
+                    "DOP",
+                    "DZD",
+                    "EGP",
+                    "ERN",
+                    "ETB",
+                    "EUR",
+                    "FJD",
+                    "FKP",
+                    "GBP",
+                    "GEL",
+                    "GHS",
+                    "GIP",
+                    "GMD",
+                    "GNF",
+                    "GTQ",
+                    "GYD",
+                    "HKD",
+                    "HNL",
+                    "HRK",
+                    "HTG",
+                    "HUF",
+                    "IDR",
+                    "ILS",
+                    "INR",
+                    "IQD",
+                    "IRR",
+                    "ISK",
+                    "JMD",
+                    "JOD",
+                    "JPY",
+                    "KES",
+                    "KGS",
+                    "KHR",
+                    "KMF",
+                    "KPW",
+                    "KRW",
+                    "KWD",
+                    "KYD",
+                    "KZT",
+                    "LAK",
+                    "LBP",
+                    "LKR",
+                    "LRD",
+                    "LSL",
+                    "LTL",
+                    "LVL",
+                    "LYD",
+                    "MAD",
+                    "MDL",
+                    "MGA",
+                    "MKD",
+                    "MMK",
+                    "MNT",
+                    "MOP",
+                    "MRO",
+                    "MUR",
+                    "MVR",
+                    "MWK",
+                    "MXN",
+                    "MXV",
+                    "MYR",
+                    "MZN",
+                    "NAD",
+                    "NGN",
+                    "NIO",
+                    "NOK",
+                    "NPR",
+                    "NZD",
+                    "OMR",
+                    "PAB",
+                    "PEN",
+                    "PGK",
+                    "PHP",
+                    "PKR",
+                    "PLN",
+                    "PYG",
+                    "QAR",
+                    "RON",
+                    "RSD",
+                    "RUB",
+                    "RWF",
+                    "SAR",
+                    "SBD",
+                    "SCR",
+                    "SDG",
+                    "SEK",
+                    "SGD",
+                    "SHP",
+                    "SLL",
+                    "SOS",
+                    "SRD",
+                    "SSP",
+                    "STD",
+                    "SVC",
+                    "SYP",
+                    "SZL",
+                    "THB",
+                    "TJS",
+                    "TMT",
+                    "TND",
+                    "TOP",
+                    "TRC",
+                    "TRY",
+                    "TTD",
+                    "TWD",
+                    "TZS",
+                    "UAH",
+                    "UGX",
+                    "USD",
+                    "USN",
+                    "USS",
+                    "UYI",
+                    "UYU",
+                    "UZS",
+                    "VEF",
+                    "VND",
+                    "VUV",
+                    "WST",
+                    "XAF",
+                    "XAG",
+                    "XAU",
+                    "XBA",
+                    "XBB",
+                    "XBC",
+                    "XBD",
+                    "XCD",
+                    "XDR",
+                    "XOF",
+                    "XPD",
+                    "XPF",
+                    "XPT",
+                    "XTS",
+                    "XXX",
+                    "YER",
+                    "ZAR",
+                    "ZMK",
+                    "ZMW",
+                    "BTC",
+                    "ETH"
+                ],
+                "x-apideck-enum-id": "currencies",
+                "x-apideck-enum-coverage-ignore": true,
+                "x-enum-elements": [
+                    {
+                        "name": "UNKNOWN_CURRENCY",
+                        "description": "Unknown currency"
+                    },
+                    {
+                        "name": "AED",
+                        "description": "United Arab Emirates dirham"
+                    },
+                    {
+                        "name": "AFN",
+                        "description": "Afghan afghani"
+                    },
+                    {
+                        "name": "ALL",
+                        "description": "Albanian lek"
+                    },
+                    {
+                        "name": "AMD",
+                        "description": "Armenian dram"
+                    },
+                    {
+                        "name": "ANG",
+                        "description": "Netherlands Antillean guilder"
+                    },
+                    {
+                        "name": "AOA",
+                        "description": "Angolan kwanza"
+                    },
+                    {
+                        "name": "ARS",
+                        "description": "Argentine peso"
+                    },
+                    {
+                        "name": "AUD",
+                        "description": "Australian dollar"
+                    },
+                    {
+                        "name": "AWG",
+                        "description": "Aruban florin"
+                    },
+                    {
+                        "name": "AZN",
+                        "description": "Azerbaijani manat"
+                    },
+                    {
+                        "name": "BAM",
+                        "description": "Bosnia and Herzegovina convertible mark"
+                    },
+                    {
+                        "name": "BBD",
+                        "description": "Barbados dollar"
+                    },
+                    {
+                        "name": "BDT",
+                        "description": "Bangladeshi taka"
+                    },
+                    {
+                        "name": "BGN",
+                        "description": "Bulgarian lev"
+                    },
+                    {
+                        "name": "BHD",
+                        "description": "Bahraini dinar"
+                    },
+                    {
+                        "name": "BIF",
+                        "description": "Burundian franc"
+                    },
+                    {
+                        "name": "BMD",
+                        "description": "Bermudian dollar"
+                    },
+                    {
+                        "name": "BND",
+                        "description": "Brunei dollar"
+                    },
+                    {
+                        "name": "BOB",
+                        "description": "Boliviano"
+                    },
+                    {
+                        "name": "BOV",
+                        "description": "Bolivian Mvdol"
+                    },
+                    {
+                        "name": "BRL",
+                        "description": "Brazilian real"
+                    },
+                    {
+                        "name": "BSD",
+                        "description": "Bahamian dollar"
+                    },
+                    {
+                        "name": "BTN",
+                        "description": "Bhutanese ngultrum"
+                    },
+                    {
+                        "name": "BWP",
+                        "description": "Botswana pula"
+                    },
+                    {
+                        "name": "BYR",
+                        "description": "Belarusian ruble"
+                    },
+                    {
+                        "name": "BZD",
+                        "description": "Belize dollar"
+                    },
+                    {
+                        "name": "CAD",
+                        "description": "Canadian dollar"
+                    },
+                    {
+                        "name": "CDF",
+                        "description": "Congolese franc"
+                    },
+                    {
+                        "name": "CHE",
+                        "description": "WIR Euro"
+                    },
+                    {
+                        "name": "CHF",
+                        "description": "Swiss franc"
+                    },
+                    {
+                        "name": "CHW",
+                        "description": "WIR Franc"
+                    },
+                    {
+                        "name": "CLF",
+                        "description": "Unidad de Fomento"
+                    },
+                    {
+                        "name": "CLP",
+                        "description": "Chilean peso"
+                    },
+                    {
+                        "name": "CNY",
+                        "description": "Chinese yuan"
+                    },
+                    {
+                        "name": "COP",
+                        "description": "Colombian peso"
+                    },
+                    {
+                        "name": "COU",
+                        "description": "Unidad de Valor Real"
+                    },
+                    {
+                        "name": "CRC",
+                        "description": "Costa Rican colon"
+                    },
+                    {
+                        "name": "CUC",
+                        "description": "Cuban convertible peso"
+                    },
+                    {
+                        "name": "CUP",
+                        "description": "Cuban peso"
+                    },
+                    {
+                        "name": "CVE",
+                        "description": "Cape Verdean escudo"
+                    },
+                    {
+                        "name": "CZK",
+                        "description": "Czech koruna"
+                    },
+                    {
+                        "name": "DJF",
+                        "description": "Djiboutian franc"
+                    },
+                    {
+                        "name": "DKK",
+                        "description": "Danish krone"
+                    },
+                    {
+                        "name": "DOP",
+                        "description": "Dominican peso"
+                    },
+                    {
+                        "name": "DZD",
+                        "description": "Algerian dinar"
+                    },
+                    {
+                        "name": "EGP",
+                        "description": "Egyptian pound"
+                    },
+                    {
+                        "name": "ERN",
+                        "description": "Eritrean nakfa"
+                    },
+                    {
+                        "name": "ETB",
+                        "description": "Ethiopian birr"
+                    },
+                    {
+                        "name": "EUR",
+                        "description": "Euro"
+                    },
+                    {
+                        "name": "FJD",
+                        "description": "Fiji dollar"
+                    },
+                    {
+                        "name": "FKP",
+                        "description": "Falkland Islands pound"
+                    },
+                    {
+                        "name": "GBP",
+                        "description": "Pound sterling"
+                    },
+                    {
+                        "name": "GEL",
+                        "description": "Georgian lari"
+                    },
+                    {
+                        "name": "GHS",
+                        "description": "Ghanaian cedi"
+                    },
+                    {
+                        "name": "GIP",
+                        "description": "Gibraltar pound"
+                    },
+                    {
+                        "name": "GMD",
+                        "description": "Gambian dalasi"
+                    },
+                    {
+                        "name": "GNF",
+                        "description": "Guinean franc"
+                    },
+                    {
+                        "name": "GTQ",
+                        "description": "Guatemalan quetzal"
+                    },
+                    {
+                        "name": "GYD",
+                        "description": "Guyanese dollar"
+                    },
+                    {
+                        "name": "HKD",
+                        "description": "Hong Kong dollar"
+                    },
+                    {
+                        "name": "HNL",
+                        "description": "Honduran lempira"
+                    },
+                    {
+                        "name": "HRK",
+                        "description": "Croatian kuna"
+                    },
+                    {
+                        "name": "HTG",
+                        "description": "Haitian gourde"
+                    },
+                    {
+                        "name": "HUF",
+                        "description": "Hungarian forint"
+                    },
+                    {
+                        "name": "IDR",
+                        "description": "Indonesian rupiah"
+                    },
+                    {
+                        "name": "ILS",
+                        "description": "Israeli new shekel"
+                    },
+                    {
+                        "name": "INR",
+                        "description": "Indian rupee"
+                    },
+                    {
+                        "name": "IQD",
+                        "description": "Iraqi dinar"
+                    },
+                    {
+                        "name": "IRR",
+                        "description": "Iranian rial"
+                    },
+                    {
+                        "name": "ISK",
+                        "description": "Icelandic kr\u00c3\u00b3na"
+                    },
+                    {
+                        "name": "JMD",
+                        "description": "Jamaican dollar"
+                    },
+                    {
+                        "name": "JOD",
+                        "description": "Jordanian dinar"
+                    },
+                    {
+                        "name": "JPY",
+                        "description": "Japanese yen"
+                    },
+                    {
+                        "name": "KES",
+                        "description": "Kenyan shilling"
+                    },
+                    {
+                        "name": "KGS",
+                        "description": "Kyrgyzstani som"
+                    },
+                    {
+                        "name": "KHR",
+                        "description": "Cambodian riel"
+                    },
+                    {
+                        "name": "KMF",
+                        "description": "Comoro franc"
+                    },
+                    {
+                        "name": "KPW",
+                        "description": "North Korean won"
+                    },
+                    {
+                        "name": "KRW",
+                        "description": "South Korean won"
+                    },
+                    {
+                        "name": "KWD",
+                        "description": "Kuwaiti dinar"
+                    },
+                    {
+                        "name": "KYD",
+                        "description": "Cayman Islands dollar"
+                    },
+                    {
+                        "name": "KZT",
+                        "description": "Kazakhstani tenge"
+                    },
+                    {
+                        "name": "LAK",
+                        "description": "Lao kip"
+                    },
+                    {
+                        "name": "LBP",
+                        "description": "Lebanese pound"
+                    },
+                    {
+                        "name": "LKR",
+                        "description": "Sri Lankan rupee"
+                    },
+                    {
+                        "name": "LRD",
+                        "description": "Liberian dollar"
+                    },
+                    {
+                        "name": "LSL",
+                        "description": "Lesotho loti"
+                    },
+                    {
+                        "name": "LTL",
+                        "description": "Lithuanian litas"
+                    },
+                    {
+                        "name": "LVL",
+                        "description": "Latvian lats"
+                    },
+                    {
+                        "name": "LYD",
+                        "description": "Libyan dinar"
+                    },
+                    {
+                        "name": "MAD",
+                        "description": "Moroccan dirham"
+                    },
+                    {
+                        "name": "MDL",
+                        "description": "Moldovan leu"
+                    },
+                    {
+                        "name": "MGA",
+                        "description": "Malagasy ariary"
+                    },
+                    {
+                        "name": "MKD",
+                        "description": "Macedonian denar"
+                    },
+                    {
+                        "name": "MMK",
+                        "description": "Myanmar kyat"
+                    },
+                    {
+                        "name": "MNT",
+                        "description": "Mongolian t\u00c3\u00b6gr\u00c3\u00b6g"
+                    },
+                    {
+                        "name": "MOP",
+                        "description": "Macanese pataca"
+                    },
+                    {
+                        "name": "MRO",
+                        "description": "Mauritanian ouguiya"
+                    },
+                    {
+                        "name": "MUR",
+                        "description": "Mauritian rupee"
+                    },
+                    {
+                        "name": "MVR",
+                        "description": "Maldivian rufiyaa"
+                    },
+                    {
+                        "name": "MWK",
+                        "description": "Malawian kwacha"
+                    },
+                    {
+                        "name": "MXN",
+                        "description": "Mexican peso"
+                    },
+                    {
+                        "name": "MXV",
+                        "description": "Mexican Unidad de Inversion"
+                    },
+                    {
+                        "name": "MYR",
+                        "description": "Malaysian ringgit"
+                    },
+                    {
+                        "name": "MZN",
+                        "description": "Mozambican metical"
+                    },
+                    {
+                        "name": "NAD",
+                        "description": "Namibian dollar"
+                    },
+                    {
+                        "name": "NGN",
+                        "description": "Nigerian naira"
+                    },
+                    {
+                        "name": "NIO",
+                        "description": "Nicaraguan c\u00c3\u00b3rdoba"
+                    },
+                    {
+                        "name": "NOK",
+                        "description": "Norwegian krone"
+                    },
+                    {
+                        "name": "NPR",
+                        "description": "Nepalese rupee"
+                    },
+                    {
+                        "name": "NZD",
+                        "description": "New Zealand dollar"
+                    },
+                    {
+                        "name": "OMR",
+                        "description": "Omani rial"
+                    },
+                    {
+                        "name": "PAB",
+                        "description": "Panamanian balboa"
+                    },
+                    {
+                        "name": "PEN",
+                        "description": "Peruvian sol"
+                    },
+                    {
+                        "name": "PGK",
+                        "description": "Papua New Guinean kina"
+                    },
+                    {
+                        "name": "PHP",
+                        "description": "Philippine peso"
+                    },
+                    {
+                        "name": "PKR",
+                        "description": "Pakistani rupee"
+                    },
+                    {
+                        "name": "PLN",
+                        "description": "Polish z\u00c5\u201aoty"
+                    },
+                    {
+                        "name": "PYG",
+                        "description": "Paraguayan guaran\u00c3\u00ad"
+                    },
+                    {
+                        "name": "QAR",
+                        "description": "Qatari riyal"
+                    },
+                    {
+                        "name": "RON",
+                        "description": "Romanian leu"
+                    },
+                    {
+                        "name": "RSD",
+                        "description": "Serbian dinar"
+                    },
+                    {
+                        "name": "RUB",
+                        "description": "Russian ruble"
+                    },
+                    {
+                        "name": "RWF",
+                        "description": "Rwandan franc"
+                    },
+                    {
+                        "name": "SAR",
+                        "description": "Saudi riyal"
+                    },
+                    {
+                        "name": "SBD",
+                        "description": "Solomon Islands dollar"
+                    },
+                    {
+                        "name": "SCR",
+                        "description": "Seychelles rupee"
+                    },
+                    {
+                        "name": "SDG",
+                        "description": "Sudanese pound"
+                    },
+                    {
+                        "name": "SEK",
+                        "description": "Swedish krona"
+                    },
+                    {
+                        "name": "SGD",
+                        "description": "Singapore dollar"
+                    },
+                    {
+                        "name": "SHP",
+                        "description": "Saint Helena pound"
+                    },
+                    {
+                        "name": "SLL",
+                        "description": "Sierra Leonean leone"
+                    },
+                    {
+                        "name": "SOS",
+                        "description": "Somali shilling"
+                    },
+                    {
+                        "name": "SRD",
+                        "description": "Surinamese dollar"
+                    },
+                    {
+                        "name": "SSP",
+                        "description": "South Sudanese pound"
+                    },
+                    {
+                        "name": "STD",
+                        "description": "S\u00c3\u00a3o Tom\u00c3\u00a9 and Pr\u00c3\u00adncipe dobra"
+                    },
+                    {
+                        "name": "SVC",
+                        "description": "Salvadoran col\u00c3\u00b3n"
+                    },
+                    {
+                        "name": "SYP",
+                        "description": "Syrian pound"
+                    },
+                    {
+                        "name": "SZL",
+                        "description": "Swazi lilangeni"
+                    },
+                    {
+                        "name": "THB",
+                        "description": "Thai baht"
+                    },
+                    {
+                        "name": "TJS",
+                        "description": "Tajikstani somoni"
+                    },
+                    {
+                        "name": "TMT",
+                        "description": "Turkmenistan manat"
+                    },
+                    {
+                        "name": "TND",
+                        "description": "Tunisian dinar"
+                    },
+                    {
+                        "name": "TOP",
+                        "description": "Tongan pa'anga"
+                    },
+                    {
+                        "name": "TRY",
+                        "description": "Turkish lira"
+                    },
+                    {
+                        "name": "TTD",
+                        "description": "Trinidad and Tobago dollar"
+                    },
+                    {
+                        "name": "TWD",
+                        "description": "New Taiwan dollar"
+                    },
+                    {
+                        "name": "TZS",
+                        "description": "Tanzanian shilling"
+                    },
+                    {
+                        "name": "UAH",
+                        "description": "Ukrainian hryvnia"
+                    },
+                    {
+                        "name": "UGX",
+                        "description": "Ugandan shilling"
+                    },
+                    {
+                        "name": "USD",
+                        "description": "United States dollar"
+                    },
+                    {
+                        "name": "USN",
+                        "description": "United States dollar (next day)"
+                    },
+                    {
+                        "name": "USS",
+                        "description": "United States dollar (same day)"
+                    },
+                    {
+                        "name": "UYI",
+                        "description": "Uruguay Peso en Unidedades Indexadas"
+                    },
+                    {
+                        "name": "UYU",
+                        "description": "Uruguyan peso"
+                    },
+                    {
+                        "name": "UZS",
+                        "description": "Uzbekistan som"
+                    },
+                    {
+                        "name": "VEF",
+                        "description": "Venezuelan bol\u00c3\u00advar soberano"
+                    },
+                    {
+                        "name": "VND",
+                        "description": "Vietnamese \u00c4\u2018\u00e1\u00bb\u201cng"
+                    },
+                    {
+                        "name": "VUV",
+                        "description": "Vanuatu vatu"
+                    },
+                    {
+                        "name": "WST",
+                        "description": "Samoan tala"
+                    },
+                    {
+                        "name": "XAF",
+                        "description": "CFA franc BEAC"
+                    },
+                    {
+                        "name": "XAG",
+                        "description": "Silver"
+                    },
+                    {
+                        "name": "XAU",
+                        "description": "Gold"
+                    },
+                    {
+                        "name": "XBA",
+                        "description": "European Composite Unit"
+                    },
+                    {
+                        "name": "XBB",
+                        "description": "European Monetary Unit"
+                    },
+                    {
+                        "name": "XBC",
+                        "description": "European Unit of Account 9"
+                    },
+                    {
+                        "name": "XBD",
+                        "description": "European Unit of Account 17"
+                    },
+                    {
+                        "name": "XCD",
+                        "description": "East Caribbean dollar"
+                    },
+                    {
+                        "name": "XDR",
+                        "description": "Special drawing rights (International Monetary Fund)"
+                    },
+                    {
+                        "name": "XOF",
+                        "description": "CFA franc BCEAO"
+                    },
+                    {
+                        "name": "XPD",
+                        "description": "Palladium"
+                    },
+                    {
+                        "name": "XPF",
+                        "description": "CFP franc"
+                    },
+                    {
+                        "name": "XPT",
+                        "description": "Platinum"
+                    },
+                    {
+                        "name": "XTS",
+                        "description": "Code reserved for testing"
+                    },
+                    {
+                        "name": "XXX",
+                        "description": "No currency"
+                    },
+                    {
+                        "name": "YER",
+                        "description": "Yemeni rial"
+                    },
+                    {
+                        "name": "ZAR",
+                        "description": "South African rand"
+                    },
+                    {
+                        "name": "ZMK",
+                        "description": "Zambian kwacha"
+                    },
+                    {
+                        "name": "ZMW",
+                        "description": "Zambian kwacha"
+                    },
+                    {
+                        "name": "BTC",
+                        "description": "Bitcoin"
+                    },
+                    {
+                        "name": "ETH",
+                        "description": "Ether"
+                    }
+                ]
+            },
+            "Lead": {
+                "required": [
+                    "name"
+                ],
+                "type": "object",
+                "properties": {
+                    "addresses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Address"
+                        }
+                    },
+                    "owner_id": {
+                        "type": "string",
+                        "description": "The owner of the lead",
+                        "nullable": true,
+                        "example": "54321",
+                        "x-ballerina-name": "ownerId"
+                    },
+                    "prefix": {
+                        "type": "string",
+                        "description": "The prefix of the lead",
+                        "nullable": true,
+                        "example": "Sir"
+                    },
+                    "social_links": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SocialLink"
+                        },
+                        "x-ballerina-name": "socialLinks"
+                    },
+                    "lead_source": {
+                        "type": "string",
+                        "description": "The source of the lead",
+                        "nullable": true,
+                        "example": "Cold Call",
+                        "x-ballerina-name": "leadSource"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the lead",
+                        "nullable": true,
+                        "example": "A thinker"
+                    },
+                    "created_at": {
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$",
+                        "type": "string",
+                        "description": "Date created in ISO 8601 format",
+                        "nullable": true,
+                        "readOnly": true,
+                        "example": "2020-09-30T07:43:32.000Z",
+                        "x-ballerina-name": "createdAt"
+                    },
+                    "language": {
+                        "type": "string",
+                        "description": "language code according to ISO 639-1. For the United States - EN",
+                        "nullable": true,
+                        "example": "EN"
+                    },
+                    "monetary_amount": {
+                        "type": "number",
+                        "description": "The monetary amount of the lead",
+                        "nullable": true,
+                        "example": 75000,
+                        "x-ballerina-name": "monetaryAmount"
+                    },
+                    "contact_id": {
+                        "type": "string",
+                        "description": "The contact the lead is associated with",
+                        "nullable": true,
+                        "example": "3",
+                        "x-ballerina-name": "contactId"
+                    },
+                    "title": {
+                        "type": "string",
+                        "description": "The job title of the lead",
+                        "nullable": true,
+                        "example": "CEO"
+                    },
+                    "custom_mappings": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/CustomMappings"
+                            }
+                        ],
+                        "x-ballerina-name": "customMappings"
+                    },
+                    "emails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Email"
+                        }
+                    },
+                    "updated_at": {
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$",
+                        "type": "string",
+                        "description": "Date updated in ISO 8601 format",
+                        "nullable": true,
+                        "readOnly": true,
+                        "example": "2020-09-30T07:43:32.000Z",
+                        "x-ballerina-name": "updatedAt"
+                    },
+                    "currency": {
+                        "$ref": "#/components/schemas/Currency"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier for the contact",
+                        "readOnly": true,
+                        "example": "12345"
+                    },
+                    "fax": {
+                        "type": "string",
+                        "description": "The fax number of the lead",
+                        "nullable": true,
+                        "example": "+12129876543"
+                    },
+                    "first_name": {
+                        "type": "string",
+                        "description": "The first name of the lead",
+                        "nullable": true,
+                        "example": "Elon",
+                        "x-ballerina-name": "firstName"
+                    },
+                    "lead_id": {
+                        "type": "string",
+                        "description": "The identifier of the lead",
+                        "nullable": true,
+                        "example": "2",
+                        "x-ballerina-name": "leadId"
+                    },
+                    "owner_name": {
+                        "type": "string",
+                        "description": "The name of the owner of the lead",
+                        "nullable": true,
+                        "example": "John Doe",
+                        "x-ballerina-name": "ownerName"
+                    },
+                    "company_id": {
+                        "type": "string",
+                        "description": "The company the lead is associated with",
+                        "nullable": true,
+                        "example": "2",
+                        "x-ballerina-name": "companyId"
+                    },
+                    "custom_fields": {
+                        "type": "array",
+                        "nullable": true,
+                        "items": {
+                            "$ref": "#/components/schemas/CustomField"
+                        },
+                        "x-ballerina-name": "customFields"
+                    },
+                    "pass_through": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/PassThroughBody"
+                            }
+                        ],
+                        "x-ballerina-name": "passThrough"
+                    },
+                    "last_name": {
+                        "type": "string",
+                        "description": "The last name of the lead",
+                        "nullable": true,
+                        "example": "Musk",
+                        "x-ballerina-name": "lastName"
+                    },
+                    "tags": {
+                        "$ref": "#/components/schemas/Tags"
+                    },
+                    "phone_numbers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PhoneNumber"
+                        },
+                        "x-ballerina-name": "phoneNumbers"
+                    },
+                    "company_name": {
+                        "type": "string",
+                        "description": "The name of the company the lead is associated with",
+                        "nullable": true,
+                        "example": "Spacex",
+                        "x-ballerina-name": "companyName"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Full name of the lead",
+                        "example": "Elon Musk"
+                    },
+                    "websites": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Website"
+                        }
+                    },
+                    "status": {
+                        "type": "string",
+                        "nullable": true,
+                        "example": "New"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "Lead",
+                "x-apideck-weights": {
+                    "id": "critical",
+                    "name": "critical",
+                    "company_name": "high",
+                    "owner_id": "high",
+                    "owner_name": "low",
+                    "company_id": "high",
+                    "contact_id": "low",
+                    "lead_source": "low",
+                    "first_name": "high",
+                    "last_name": "high",
+                    "description": "low",
+                    "prefix": "low",
+                    "title": "high",
+                    "language": "medium",
+                    "status": "high",
+                    "monetary_amount": "low",
+                    "currency": "low",
+                    "fax": "low",
+                    "websites": "medium",
+                    "addresses": "high",
+                    "social_links": "low",
+                    "phone_numbers": "high",
+                    "emails": "high",
+                    "custom_fields": "medium",
+                    "tags": "low",
+                    "updated_at": "medium",
+                    "created_at": "medium"
+                },
+                "x-pii": [
+                    "name",
+                    "email",
+                    "first_name",
+                    "last_name"
+                ]
+            },
+            "UnexpectedErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "RequestHeadersValidationError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#unauthorizederror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 400,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Missing Header: x-apideck-consumer-id"
+                            },
+                            {
+                                "type": "object",
+                                "example": {
+                                    "missing": [
+                                        {
+                                            "x-apideck-consumer-id": "required"
+                                        }
+                                    ]
+                                },
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Bad Request"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Invalid Params",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "Error"
+            },
+            "CustomMappings": {
+                "type": "object",
+                "additionalProperties": true,
+                "description": "When custom mappings are configured on the resource, the result is included here",
+                "nullable": true,
+                "readOnly": true,
+                "x-apideck-schema-id": "CustomMappings"
+            },
+            "Tags": {
+                "type": "array",
+                "nullable": true,
+                "example": [
+                    "New"
+                ],
+                "items": {
+                    "type": "string"
+                },
+                "x-apideck-schema-id": "Tags"
+            },
+            "PassThroughItem": {
+                "required": [
+                    "service_id"
+                ],
+                "type": "object",
+                "properties": {
+                    "service_id": {
+                        "type": "string",
+                        "description": "Identifier for the service to which this pass_through should be applied",
+                        "x-ballerina-name": "serviceId"
+                    },
+                    "operation_id": {
+                        "type": "string",
+                        "description": "Optional identifier for a workflow operation to which this pass_through should be applied. This is useful for Unify calls that are making more than one downstream request",
+                        "x-ballerina-name": "operationId"
+                    },
+                    "extend_object": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "description": "Simple object allowing any properties for direct extension",
+                        "x-ballerina-name": "extendObject"
+                    },
+                    "extend_paths": {
+                        "type": "array",
+                        "description": "Array of objects for structured data modifications via paths",
+                        "items": {
+                            "required": [
+                                "path",
+                                "value"
+                            ],
+                            "type": "object",
+                            "properties": {
+                                "path": {
+                                    "type": "string",
+                                    "description": "JSONPath string specifying where to apply the value.",
+                                    "example": "$.nested.property"
+                                },
+                                "value": {
+                                    "description": "The value to set at the specified path, can be any type.",
+                                    "example": {
+                                        "TaxClassificationRef": {
+                                            "value": "EUC-99990201-V1-00020000"
+                                        }
+                                    }
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "x-ballerina-name": "extendPaths"
+                    }
+                },
+                "additionalProperties": false,
+                "writeOnly": true
+            },
+            "WebhookEventBase": {
+                "type": "object",
+                "properties": {
+                    "occurred_at": {
+                        "type": "string",
+                        "description": "ISO Datetime for when the original event occurred",
+                        "example": "2021-10-01T03:14:55.419Z",
+                        "x-ballerina-name": "occurredAt"
+                    },
+                    "consumer_id": {
+                        "type": "string",
+                        "description": "Unique consumer identifier. You can freely choose a consumer ID yourself. Most of the time, this is an ID of your internal data model that represents a user or account in your system (for example account:12345). If the consumer doesn't exist yet, Vault will upsert a consumer based on your ID",
+                        "example": "test_consumer_id",
+                        "x-ballerina-name": "consumerId"
+                    },
+                    "event_id": {
+                        "type": "string",
+                        "description": "Unique reference to this request event",
+                        "example": "9755c355-56c3-4a2f-a2da-86ff4411fccb",
+                        "x-ballerina-name": "eventId"
+                    },
+                    "entity_type": {
+                        "type": "string",
+                        "description": "The type entity that triggered this event",
+                        "example": "Company",
+                        "x-ballerina-name": "entityType"
+                    },
+                    "entity_url": {
+                        "type": "string",
+                        "description": "The url to retrieve entity detail",
+                        "example": "https://unify.apideck.com/crm/contacts/123456",
+                        "x-ballerina-name": "entityUrl"
+                    },
+                    "service_id": {
+                        "type": "string",
+                        "description": "Service provider identifier",
+                        "example": "close",
+                        "x-ballerina-name": "serviceId"
+                    },
+                    "entity_id": {
+                        "type": "string",
+                        "description": "The service provider's ID of the entity that triggered this event",
+                        "example": "123456ASDF",
+                        "x-ballerina-name": "entityId"
+                    },
+                    "unified_api": {
+                        "type": "string",
+                        "description": "Name of Apideck Unified API",
+                        "example": "crm",
+                        "enum": [
+                            "accounting",
+                            "ats",
+                            "calendar",
+                            "crm",
+                            "csp",
+                            "customer-support",
+                            "ecommerce",
+                            "email",
+                            "email-marketing",
+                            "expense-management",
+                            "file-storage",
+                            "form",
+                            "hris",
+                            "lead",
+                            "payroll",
+                            "pos",
+                            "procurement",
+                            "project-management",
+                            "script",
+                            "sms",
+                            "spreadsheet",
+                            "subscription-analytics",
+                            "team-messaging",
+                            "issue-tracking",
+                            "time-registration",
+                            "transactional-email",
+                            "vault",
+                            "data-warehouse"
+                        ],
+                        "x-apideck-enum-id": "unified_api",
+                        "x-ballerina-name": "unifiedApi"
+                    },
+                    "execution_attempt": {
+                        "type": "number",
+                        "description": "The current count this request event has been attempted",
+                        "example": 2,
+                        "x-ballerina-name": "executionAttempt"
+                    }
+                },
+                "x-apideck-schema-id": "WebhookEvent"
+            },
+            "BadRequestResponseDownstreamErrors": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "Error code from the downstream provider"
+                    },
+                    "detail": {
+                        "type": "string",
+                        "description": "Additional error details"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Error message from the downstream provider"
+                    }
+                }
+            },
+            "UpdateLeadResponse": {
+                "required": [
+                    "data",
+                    "operation",
+                    "resource",
+                    "service",
+                    "status",
+                    "status_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP Response Status Code",
+                        "example": 200,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/UnifiedId"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Unified API resource name",
+                        "example": "companies"
+                    },
+                    "_raw": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Raw"
+                            }
+                        ],
+                        "x-ballerina-name": "raw"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Apideck ID of service provider",
+                        "example": "zoho-crm"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Operation performed",
+                        "example": "update"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "HTTP Response Status",
+                        "example": "OK"
+                    }
+                },
+                "x-apideck-schema-id": "UpdateLeadResponse"
+            },
+            "LeadWebhookEventTypeInfo": {
+                "type": "object",
+                "properties": {
+                    "event_type": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/LeadEventType"
+                            }
+                        ],
+                        "x-ballerina-name": "eventType"
+                    }
+                }
+            },
+            "LeadsSort": {
+                "type": "object",
+                "properties": {
+                    "by": {
+                        "type": "string",
+                        "description": "The field on which to sort the Leads",
+                        "example": "created_at",
+                        "enum": [
+                            "created_at",
+                            "updated_at",
+                            "name",
+                            "first_name",
+                            "last_name",
+                            "email"
+                        ],
+                        "x-apideck-enum-id": "leads.sort_by"
+                    },
+                    "direction": {
+                        "$ref": "#/components/schemas/SortDirection"
+                    }
+                },
+                "additionalProperties": false,
+                "example": {
+                    "by": "created_at",
+                    "direction": "desc"
+                },
+                "x-apideck-schema-id": "LeadsSort"
+            },
+            "CreateLeadResponse": {
+                "required": [
+                    "data",
+                    "operation",
+                    "resource",
+                    "service",
+                    "status",
+                    "status_code"
+                ],
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP Response Status Code",
+                        "example": 200,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/UnifiedId"
+                    },
+                    "resource": {
+                        "type": "string",
+                        "description": "Unified API resource name",
+                        "example": "companies"
+                    },
+                    "_raw": {
+                        "allOf": [
+                            {
+                                "$ref": "#/components/schemas/Raw"
+                            }
+                        ],
+                        "x-ballerina-name": "raw"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Apideck ID of service provider",
+                        "example": "zoho-crm"
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Operation performed",
+                        "example": "add"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "HTTP Response Status",
+                        "example": "OK"
+                    }
+                },
+                "x-apideck-schema-id": "CreateLeadResponse"
+            },
+            "RowVersion": {
+                "title": "Row version",
+                "type": "string",
+                "description": "A binary value used to detect updates to a object and prevent data conflicts. It is incremented each time an update is made to the object",
+                "nullable": true,
+                "example": "1-12345"
+            },
+            "MetaWarnings": {
+                "type": "object",
+                "properties": {
+                    "status_code": {
+                        "type": "integer",
+                        "description": "HTTP status code returned by the failed downstream request, when available",
+                        "nullable": true,
+                        "example": 429,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Discriminator for the warning kind",
+                        "example": "downstream_request_failed"
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Short error description from the downstream provider, when available",
+                        "nullable": true
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "Detailed message from the downstream provider, when available",
+                        "nullable": true
+                    },
+                    "operation": {
+                        "type": "string",
+                        "description": "Identifier of the workflow step that failed",
+                        "nullable": true,
+                        "example": "getManager"
+                    }
+                },
+                "description": "Advisory warning emitted when an optional workflow step fails non-fatally. The overall request still succeeds (HTTP 200); inspect this to detect partial or degraded data"
+            },
+            "CustomField": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "type": "string",
+                        "description": "Unique identifier for the custom field.",
+                        "nullable": true,
+                        "example": "2389328923893298"
+                    },
+                    "name": {
+                        "title": "Name",
+                        "type": "string",
+                        "description": "Name of the custom field.",
+                        "nullable": true,
+                        "example": "employee_level"
+                    },
+                    "ref_name": {
+                        "title": "Reference name",
+                        "type": "string",
+                        "description": "Display name of the record a reference-type custom field points at. `value` carries that record's id; this carries its human-readable name, so a consumer does not need a second lookup to render it.",
+                        "nullable": true,
+                        "example": "Marketing"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "type": "string",
+                        "description": "More information about the custom field",
+                        "nullable": true,
+                        "example": "Employee Level"
+                    },
+                    "value": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "nullable": true,
+                                "example": "Uses Salesforce and Marketo"
+                            },
+                            {
+                                "type": "number",
+                                "nullable": true,
+                                "example": 10
+                            },
+                            {
+                                "type": "boolean",
+                                "nullable": true,
+                                "example": true
+                            },
+                            {
+                                "type": "object",
+                                "additionalProperties": true,
+                                "nullable": true,
+                                "example": {
+                                    "foo": "bar"
+                                }
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "anyOf": [
+                                        {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "example": "Uses Salesforce and Marketo"
+                                        },
+                                        {
+                                            "type": "number",
+                                            "nullable": true,
+                                            "example": 10
+                                        },
+                                        {
+                                            "type": "boolean",
+                                            "nullable": true,
+                                            "example": true
+                                        },
+                                        {
+                                            "type": "object",
+                                            "additionalProperties": true,
+                                            "nullable": true,
+                                            "example": {
+                                                "foo": "bar"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                },
+                "additionalProperties": false,
+                "anyOf": [
+                    {
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    {
+                        "required": [
+                            "name"
+                        ]
+                    }
+                ],
+                "x-apideck-schema-id": "CustomField",
+                "x-apideck-strict-any-of": [
+                    {
+                        "required": [
+                            "id"
+                        ]
+                    },
+                    {
+                        "required": [
+                            "name"
+                        ]
+                    }
+                ],
+                "x-apideck-weights": {
+                    "id": "critical",
+                    "value": "critical",
+                    "name": "medium",
+                    "description": "edge-case",
+                    "ref_name": "edge-case"
+                }
+            },
+            "Links": {
+                "type": "object",
+                "properties": {
+                    "next": {
+                        "type": "string",
+                        "description": "Link to navigate to the previous page through the API",
+                        "nullable": true,
+                        "example": "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjM"
+                    },
+                    "current": {
+                        "type": "string",
+                        "description": "Link to navigate to the current page through the API",
+                        "example": "https://unify.apideck.com/crm/companies"
+                    },
+                    "previous": {
+                        "type": "string",
+                        "description": "Link to navigate to the previous page through the API",
+                        "nullable": true,
+                        "example": "https://unify.apideck.com/crm/companies?cursor=em9oby1jcm06OnBhZ2U6OjE%3D"
+                    }
+                },
+                "description": "Links to navigate to previous or next pages through the API",
+                "x-apideck-schema-id": "Links"
+            },
+            "PhoneNumber": {
+                "required": [
+                    "number"
+                ],
+                "type": "object",
+                "properties": {
+                    "country_code": {
+                        "title": "Country code",
+                        "type": "string",
+                        "description": "The country code of the phone number, e.g. +1",
+                        "nullable": true,
+                        "example": "1",
+                        "x-ballerina-name": "countryCode"
+                    },
+                    "number": {
+                        "title": "Phone number",
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "The phone number",
+                        "example": "111-111-1111"
+                    },
+                    "extension": {
+                        "title": "Phone extension",
+                        "type": "string",
+                        "description": "The extension of the phone number",
+                        "nullable": true,
+                        "example": "105"
+                    },
+                    "area_code": {
+                        "title": "Area code",
+                        "type": "string",
+                        "description": "The area code of the phone number, e.g. 323",
+                        "nullable": true,
+                        "example": "323",
+                        "x-ballerina-name": "areaCode"
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier of the phone number",
+                        "nullable": true,
+                        "example": "12345"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of phone number",
+                        "nullable": true,
+                        "example": "primary",
+                        "enum": [
+                            "primary",
+                            "secondary",
+                            "home",
+                            "work",
+                            "office",
+                            "mobile",
+                            "assistant",
+                            "fax",
+                            "direct-dial-in",
+                            "personal",
+                            "billing",
+                            "other"
+                        ],
+                        "x-apideck-enum-id": "phone_numbers.type"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "PhoneNumber",
+                "x-apideck-weights": {
+                    "number": "critical",
+                    "type": "critical",
+                    "id": "edge-case",
+                    "country_code": "edge-case",
+                    "area_code": "edge-case",
+                    "extension": "edge-case"
+                }
+            },
+            "LeadEventType": {
+                "type": "string",
+                "example": "lead.lead.created",
+                "enum": [
+                    "*",
+                    "lead.lead.created",
+                    "lead.lead.updated",
+                    "lead.lead.deleted"
+                ],
+                "x-apideck-enum-id": "lead.events"
+            },
+            "SocialLink": {
+                "required": [
+                    "url"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Unique identifier of the social link",
+                        "nullable": true,
+                        "example": "12345"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "Type of the social link, e.g. twitter",
+                        "nullable": true,
+                        "example": "twitter"
+                    },
+                    "url": {
+                        "minLength": 1,
+                        "type": "string",
+                        "description": "URL of the social link, e.g. https://www.twitter.com/apideck",
+                        "example": "https://www.twitter.com/apideck"
+                    }
+                },
+                "additionalProperties": false,
+                "x-apideck-schema-id": "SocialLink",
+                "x-apideck-weights": {
+                    "id": "edge-case",
+                    "url": "critical",
+                    "type": "critical"
+                }
+            },
+            "TooManyRequestsResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "ConnectorRateLimitError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#connectorratelimiterror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 429,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "$ref": "#/components/schemas/TooManyRequestsResponseDetail"
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 6585)",
+                        "example": "Too Many Requests"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Connector Rate Limit Error",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "TooManyRequests"
+            },
+            "NotFoundResponse": {
+                "type": "object",
+                "properties": {
+                    "type_name": {
+                        "type": "string",
+                        "description": "The type of error returned",
+                        "example": "EntityNotFoundError",
+                        "x-ballerina-name": "typeName"
+                    },
+                    "ref": {
+                        "type": "string",
+                        "description": "Link to documentation of error type",
+                        "example": "https://developers.apideck.com/errors#entitynotfounderror"
+                    },
+                    "status_code": {
+                        "type": "number",
+                        "description": "HTTP status code",
+                        "example": 404,
+                        "x-ballerina-name": "statusCode"
+                    },
+                    "detail": {
+                        "description": "Contains parameter or domain specific information related to the error and why it occurred",
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "example": "Could not find widget with id: '123'"
+                            },
+                            {
+                                "type": "object",
+                                "example": {
+                                    "not_found": {
+                                        "entity": "widget",
+                                        "id": "123"
+                                    }
+                                },
+                                "x-speakeasy-detail": true
+                            }
+                        ]
+                    },
+                    "error": {
+                        "type": "string",
+                        "description": "Contains an explanation of the status_code as defined in HTTP/1.1 standard (RFC 7231)",
+                        "example": "Not Found"
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A human-readable message providing more details about the error",
+                        "example": "Unknown Widget",
+                        "x-speakeasy-error-message": true
+                    }
+                },
+                "x-apideck-schema-id": "NotFound"
+            }
+        },
+        "responses": {
+            "BadRequestResponse": {
+                "description": "Bad Request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BadRequestResponse"
+                        }
+                    }
+                }
+            },
+            "CreateLeadResponse": {
+                "description": "Lead created",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateLeadResponse"
+                        }
+                    }
+                }
+            },
+            "DeleteLeadResponse": {
+                "description": "Lead deleted",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/DeleteLeadResponse"
+                        }
+                    }
+                }
+            },
+            "GetLeadResponse": {
+                "description": "Lead",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GetLeadResponse"
+                        }
+                    }
+                }
+            },
+            "GetLeadsResponse": {
+                "description": "Leads",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/GetLeadsResponse"
+                        }
+                    }
+                }
+            },
+            "NotFoundResponse": {
+                "description": "The specified resource was not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotFoundResponse"
+                        }
+                    }
+                }
+            },
+            "NotImplementedResponse": {
+                "description": "Not Implemented",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotImplementedResponse"
+                        }
+                    }
+                }
+            },
+            "PaymentRequiredResponse": {
+                "description": "Payment Required",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/PaymentRequiredResponse"
+                        }
+                    }
+                }
+            },
+            "TooManyRequestsResponse": {
+                "description": "Too Many Requests",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/TooManyRequestsResponse"
+                        }
+                    }
+                }
+            },
+            "UnauthorizedResponse": {
+                "description": "Unauthorized",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UnauthorizedResponse"
+                        }
+                    }
+                }
+            },
+            "UnexpectedErrorResponse": {
+                "description": "Unexpected error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UnexpectedErrorResponse"
+                        }
+                    }
+                }
+            },
+            "UnprocessableResponse": {
+                "description": "Unprocessable",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UnprocessableResponse"
+                        }
+                    }
+                }
+            },
+            "UpdateLeadResponse": {
+                "description": "Lead updated",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UpdateLeadResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "authorization": {
+                "name": "Authorization",
+                "in": "header",
+                "description": "Secret API key sent as a bearer token, for example `Bearer YOUR_API_KEY`. Keep it out of client-side code",
+                "required": true,
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                    "type": "string"
+                },
+                "x-ballerina-name": "authorization"
+            },
+            "applicationId": {
+                "name": "x-apideck-app-id",
+                "in": "header",
+                "description": "The ID of your Unify application",
+                "required": true,
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                    "minLength": 1,
+                    "type": "string"
+                },
+                "example": "dSBdXd2H6Mqwfg0atXHXYcysLJE9qyn1VwBtXHX",
+                "x-speakeasy-name-override": "appId",
+                "x-ballerina-name": "xApideckAppId"
+            },
+            "serviceId": {
+                "name": "x-apideck-service-id",
+                "in": "header",
+                "description": "Provide the service id you want to call (e.g., pipedrive). Only needed when a consumer has activated multiple integrations for a Unified API",
+                "required": false,
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "salesforce",
+                "x-speakeasy-name-override": "serviceId",
+                "x-ballerina-name": "xApideckServiceId"
+            },
+            "consumerId": {
+                "name": "x-apideck-consumer-id",
+                "in": "header",
+                "description": "ID of the consumer which you want to get or push data from",
+                "required": true,
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                    "type": "string"
+                },
+                "example": "test-consumer",
+                "x-speakeasy-name-override": "consumerId",
+                "x-ballerina-name": "xApideckConsumerId"
+            },
+            "raw": {
+                "name": "raw",
+                "in": "query",
+                "description": "Include raw response. Mostly used for debugging purposes",
+                "required": false,
+                "style": "form",
+                "explode": true,
+                "schema": {
+                    "type": "boolean",
+                    "default": false
+                }
+            },
+            "id": {
+                "name": "id",
+                "in": "path",
+                "description": "ID of the record you are acting upon",
+                "required": true,
+                "style": "simple",
+                "explode": false,
+                "schema": {
+                    "type": "string"
+                }
+            },
+            "limit": {
+                "name": "limit",
+                "in": "query",
+                "description": "Number of results to return. Minimum 1, Maximum 200, Default 20",
+                "required": false,
+                "style": "form",
+                "explode": true,
+                "schema": {
+                    "maximum": 200,
+                    "minimum": 1,
+                    "type": "integer",
+                    "default": 20
+                }
+            },
+            "cursor": {
+                "name": "cursor",
+                "in": "query",
+                "description": "Cursor to start from. You can find cursors for next/previous pages in the meta.cursors property of the response",
+                "required": false,
+                "style": "form",
+                "explode": true,
+                "schema": {
+                    "type": "string",
+                    "nullable": true
+                }
+            },
+            "fields": {
+                "name": "fields",
+                "in": "query",
+                "description": "The 'fields' parameter allows API users to specify the fields they want to include in the API response. If this parameter is not present, the API will return all available fields. If this parameter is present, only the fields specified in the comma-separated string will be included in the response. Nested properties can also be requested by using a dot notation. <br /><br />Example: `fields=name,email,addresses.city`<br /><br />In the example above, the response will only include the fields \"name\", \"email\" and \"addresses.city\". If any other fields are available, they will be excluded",
+                "required": false,
+                "style": "form",
+                "explode": true,
+                "schema": {
+                    "type": "string",
+                    "nullable": true
+                },
+                "example": "id,updated_at"
+            },
+            "leadsFilter": {
+                "name": "filter",
+                "in": "query",
+                "description": "Apply filters",
+                "required": false,
+                "style": "deepObject",
+                "explode": true,
+                "schema": {
+                    "$ref": "#/components/schemas/LeadsFilter"
+                }
+            },
+            "leadsSort": {
+                "name": "sort",
+                "in": "query",
+                "description": "Apply sorting",
+                "required": false,
+                "style": "deepObject",
+                "explode": true,
+                "schema": {
+                    "$ref": "#/components/schemas/LeadsSort"
+                }
+            }
+        }
+    },
+    "x-webhooks": {
+        "x-sdk-exclude": true,
+        "x-speakeasy-ignore": true,
+        "LeadCreated": {
+            "post": {
+                "summary": "Lead Created",
+                "description": "Event broadcast when a lead has been created.",
+                "operationId": "leadCreated",
+                "x-apideck-event-type": "lead.lead.created",
+                "parameters": [
+                    {
+                        "name": "x-apideck-event-type",
+                        "in": "header",
+                        "required": true,
+                        "description": "The type of event that was triggered",
+                        "schema": {
+                            "$ref": "#/components/schemas/LeadEventType"
+                        }
+                    },
+                    {
+                        "name": "x-apideck-signature",
+                        "in": "header",
+                        "required": true,
+                        "description": "HMAC SHA-256 signature of the request body, used to verify the webhook came from Apideck",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2c3b38f1a9b3349afe38829713dcd9722f47dec3ce8906ad93ce803a33f2a8a3"
+                    },
+                    {
+                        "name": "x-apideck-idempotency-key",
+                        "in": "header",
+                        "required": true,
+                        "description": "A unique identifier for the webhook event, can be used to prevent duplicate processing",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "e91dea5d-8ff6-4099-8b33-d3162fb4a042"
+                    }
+                ],
+                "tags": [
+                    "Webhook Events"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "payload": {
+                                        "$ref": "#/components/schemas/LeadWebhookEvent"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "payload": {
+                                    "event_type": "lead.lead.created",
+                                    "unified_api": "lead",
+                                    "consumer_id": "test_user_id",
+                                    "event_id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                                    "entity_id": "123456ASDF",
+                                    "entity_url": "https://unify.apideck.com/lead/leads/123456ASDF",
+                                    "entity_type": "lead",
+                                    "occurred_at": "2020-01-01T00:00:00.000Z"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a 200 status to indicate that the data was received successfully."
+                    }
+                },
+                "security": []
+            }
+        },
+        "LeadUpdated": {
+            "post": {
+                "summary": "Lead Updated",
+                "description": "Event broadcast when a lead has been updated.",
+                "operationId": "leadUpdated",
+                "x-apideck-event-type": "lead.lead.updated",
+                "parameters": [
+                    {
+                        "name": "x-apideck-event-type",
+                        "in": "header",
+                        "required": true,
+                        "description": "The type of event that was triggered",
+                        "schema": {
+                            "$ref": "#/components/schemas/LeadEventType"
+                        }
+                    },
+                    {
+                        "name": "x-apideck-signature",
+                        "in": "header",
+                        "required": true,
+                        "description": "HMAC SHA-256 signature of the request body, used to verify the webhook came from Apideck",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2c3b38f1a9b3349afe38829713dcd9722f47dec3ce8906ad93ce803a33f2a8a3"
+                    },
+                    {
+                        "name": "x-apideck-idempotency-key",
+                        "in": "header",
+                        "required": true,
+                        "description": "A unique identifier for the webhook event, can be used to prevent duplicate processing",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "e91dea5d-8ff6-4099-8b33-d3162fb4a042"
+                    }
+                ],
+                "tags": [
+                    "Webhook Events"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "payload": {
+                                        "$ref": "#/components/schemas/LeadWebhookEvent"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "payload": {
+                                    "event_type": "lead.lead.updated",
+                                    "unified_api": "lead",
+                                    "consumer_id": "test_user_id",
+                                    "event_id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                                    "entity_id": "123456ASDF",
+                                    "entity_url": "https://unify.apideck.com/lead/leads/123456ASDF",
+                                    "entity_type": "lead",
+                                    "occurred_at": "2020-01-01T00:00:00.000Z"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a 200 status to indicate that the data was received successfully."
+                    }
+                },
+                "security": []
+            }
+        },
+        "LeadDeleted": {
+            "post": {
+                "summary": "Lead Deleted",
+                "description": "Event broadcast when a lead has been deleted.",
+                "operationId": "leadDeleted",
+                "x-apideck-event-type": "lead.lead.deleted",
+                "parameters": [
+                    {
+                        "name": "x-apideck-event-type",
+                        "in": "header",
+                        "required": true,
+                        "description": "The type of event that was triggered",
+                        "schema": {
+                            "$ref": "#/components/schemas/LeadEventType"
+                        }
+                    },
+                    {
+                        "name": "x-apideck-signature",
+                        "in": "header",
+                        "required": true,
+                        "description": "HMAC SHA-256 signature of the request body, used to verify the webhook came from Apideck",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "2c3b38f1a9b3349afe38829713dcd9722f47dec3ce8906ad93ce803a33f2a8a3"
+                    },
+                    {
+                        "name": "x-apideck-idempotency-key",
+                        "in": "header",
+                        "required": true,
+                        "description": "A unique identifier for the webhook event, can be used to prevent duplicate processing",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "e91dea5d-8ff6-4099-8b33-d3162fb4a042"
+                    }
+                ],
+                "tags": [
+                    "Webhook Events"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "payload": {
+                                        "$ref": "#/components/schemas/LeadWebhookEvent"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "payload": {
+                                    "event_type": "lead.lead.deleted",
+                                    "unified_api": "lead",
+                                    "consumer_id": "test_user_id",
+                                    "event_id": "d290f1ee-6c54-4b01-90e6-d701748f0851",
+                                    "entity_id": "123456ASDF",
+                                    "entity_url": "https://unify.apideck.com/lead/leads/123456ASDF",
+                                    "entity_type": "lead",
+                                    "occurred_at": "2020-01-01T00:00:00.000Z"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Return a 200 status to indicate that the data was received successfully."
+                    }
+                },
+                "security": []
+            }
+        }
+    }
+}
