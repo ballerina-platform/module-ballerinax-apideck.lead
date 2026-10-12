@@ -1670,8 +1670,6 @@ components:
       - name: ETH
         description: Ether
     Lead:
-      required:
-      - name
       type: object
       properties:
         addresses:

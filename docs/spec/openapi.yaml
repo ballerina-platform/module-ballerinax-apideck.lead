@@ -1193,8 +1193,6 @@ components:
         tags: low
         updated_at: medium
         created_at: medium
-      required:
-        - name
       x-pii:
         - name
         - email

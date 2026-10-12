@@ -18,7 +18,7 @@ import ballerina/http;
 
 listener http:Listener ep0 = new (9090);
 
-final readonly & Lead[] seedLeads = [
+final Lead[] seedLeads = [
     {
         id: "lead_001",
         name: "Elon Musk",
@@ -57,6 +57,11 @@ final readonly & Lead[] seedLeads = [
     }
 ];
 
+// Mutable store so that create, update and delete are visible to later reads.
+map<Lead> leadStore = map from Lead lead in seedLeads
+    select [lead.id ?: "", lead.clone()];
+int nextLeadNumber = 3;
+
 service /lead on ep0 {
 
     # List leads
@@ -82,8 +87,8 @@ service /lead on ep0 {
             'service: "salesforce",
             'resource: "Leads",
             operation: "all",
-            data: seedLeads.clone(),
-            meta: {itemsOnPage: 2, cursors: {current: "em9oby1jdXJzb3I=", next: (), previous: ()}}
+            data: leadStore.toArray().clone(),
+            meta: {itemsOnPage: leadStore.length(), cursors: {current: "em9oby1jdXJzb3I=", next: (), previous: ()}}
         };
     }
 
@@ -100,13 +105,18 @@ service /lead on ep0 {
         if xApideckAppId == "" {
             return <http:Unauthorized>{body: {statusCode: 401, 'error: "Unauthorized", message: "Missing application id"}};
         }
+        string newId = string `lead_${nextLeadNumber < 10 ? "00" : "0"}${nextLeadNumber}`;
+        nextLeadNumber += 1;
+        map<anydata> stored = payload.clone();
+        stored["id"] = newId;
+        leadStore[newId] = checkpanic stored.cloneWithType();
         return {
             statusCode: 201,
             status: "Created",
             'service: "salesforce",
             'resource: "Leads",
             operation: "add",
-            data: {id: "lead_003"}
+            data: {id: newId}
         };
     }
 
@@ -121,17 +131,29 @@ service /lead on ep0 {
     # + raw - Include raw response. Mostly used for debugging purposes
     # + return - The requested lead, or an error response
     resource function get leads/[string id](@http:Header {name: "Authorization"} string authorization, @http:Header {name: "x-apideck-consumer-id"} string xApideckConsumerId, @http:Header {name: "x-apideck-app-id"} string xApideckAppId, @http:Header {name: "x-apideck-service-id"} string? xApideckServiceId, string? fields, boolean raw = false) returns GetLeadResponse|http:NotFound {
-        foreach Lead lead in seedLeads {
-            if lead.id == id {
-                return {
-                    statusCode: 200,
-                    status: "OK",
-                    'service: "salesforce",
-                    'resource: "Leads",
-                    operation: "one",
-                    data: lead.clone()
-                };
+        Lead? lead = leadStore[id];
+        if lead is Lead {
+            Lead data = lead.clone();
+            if fields is string {
+                // Keep only the requested fields, as the real API does.
+                map<anydata> full = lead.clone();
+                map<anydata> projected = {};
+                foreach string 'field in re `,`.split(fields) {
+                    string key = 'field.trim();
+                    if full.hasKey(key) {
+                        projected[key] = full[key];
+                    }
+                }
+                data = checkpanic projected.cloneWithType();
             }
+            return {
+                statusCode: 200,
+                status: "OK",
+                'service: "salesforce",
+                'resource: "Leads",
+                operation: "one",
+                data
+            };
         }
         return <http:NotFound>{body: {statusCode: 404, 'error: "Not Found", message: "The specified resource was not found", detail: "Lead " + id + " does not exist"}};
     }
@@ -147,17 +169,23 @@ service /lead on ep0 {
     # + raw - Include raw response. Mostly used for debugging purposes
     # + return - The updated lead reference, or an error response
     resource function patch leads/[string id](@http:Header {name: "Authorization"} string authorization, @http:Header {name: "x-apideck-consumer-id"} string xApideckConsumerId, @http:Header {name: "x-apideck-app-id"} string xApideckAppId, @http:Header {name: "x-apideck-service-id"} string? xApideckServiceId, @http:Payload Lead payload, boolean raw = false) returns UpdateLeadResponse|http:NotFound {
-        foreach Lead lead in seedLeads {
-            if lead.id == id {
-                return {
-                    statusCode: 200,
-                    status: "OK",
-                    'service: "salesforce",
-                    'resource: "Leads",
-                    operation: "update",
-                    data: {id: id}
-                };
+        Lead? existing = leadStore[id];
+        if existing is Lead {
+            map<anydata> merged = existing.clone();
+            map<anydata> changes = payload;
+            foreach [string, anydata] [key, value] in changes.entries() {
+                merged[key] = value;
             }
+            merged["id"] = id;
+            leadStore[id] = checkpanic merged.cloneWithType();
+            return {
+                statusCode: 200,
+                status: "OK",
+                'service: "salesforce",
+                'resource: "Leads",
+                operation: "update",
+                data: {id: id}
+            };
         }
         return <http:NotFound>{body: {statusCode: 404, 'error: "Not Found", message: "The specified resource was not found", detail: "Lead " + id + " does not exist"}};
     }
@@ -172,7 +200,7 @@ service /lead on ep0 {
     # + raw - Include raw response. Mostly used for debugging purposes
     # + return - The deleted lead reference, or an error response
     resource function delete leads/[string id](@http:Header {name: "Authorization"} string authorization, @http:Header {name: "x-apideck-consumer-id"} string xApideckConsumerId, @http:Header {name: "x-apideck-app-id"} string xApideckAppId, @http:Header {name: "x-apideck-service-id"} string? xApideckServiceId, boolean raw = false) returns DeleteLeadResponse|http:NotFound {
-        if id == "missing" {
+        if leadStore.removeIfHasKey(id) is () {
             return <http:NotFound>{body: {statusCode: 404, 'error: "Not Found", message: "The specified resource was not found", detail: "Lead " + id + " does not exist"}};
         }
         return {

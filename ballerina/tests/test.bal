@@ -26,70 +26,105 @@ final string consumerId = isLiveServer ? os:getEnv("APIDECK_CONSUMER_ID") : "tes
 
 final Client apideck = check new ({httpVersion: http:HTTP_1_1}, serviceUrl);
 
+// Leads created on the live server, deleted after the suite even if a test fails midway.
+string[] createdLeadIds = [];
+
+function createTestLead(Lead payload) returns string|error {
+    CreateLeadResponse created = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, payload);
+    string id = created.data.id;
+    if isLiveServer {
+        createdLeadIds.push(id);
+    }
+    return id;
+}
+
+@test:AfterSuite
+function cleanupCreatedLeads() {
+    foreach string id in createdLeadIds {
+        DeleteLeadResponse|error result = apideck->deleteLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+        if result is error {
+            continue;
+        }
+    }
+}
+
+function assertNotFound(GetLeadResponse|error response) {
+    if response is http:ClientRequestError {
+        test:assertEquals(response.detail().statusCode, 404);
+    } else {
+        test:assertFail("Expected a 404 client request error");
+    }
+}
+
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testListLeads() returns error? {
     GetLeadsResponse response = check apideck->listLeads({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
     test:assertEquals(response.statusCode, 200);
-    test:assertTrue(response.data.length() > 0);
+    if !isLiveServer {
+        test:assertTrue(response.data.length() > 0);
+    }
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testGetLead() returns error? {
-    string id = "lead_001";
-    if isLiveServer {
-        CreateLeadResponse created = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {name: "Get Target"});
-        id = created.data.id;
-    }
+    string id = isLiveServer ? check createTestLead({name: "Get Target"}) : "lead_001";
     GetLeadResponse response = check apideck->getLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
     test:assertEquals(response.statusCode, 200);
     test:assertEquals(response.data.id, id);
-    if isLiveServer {
-        _ = check apideck->deleteLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
-    }
 }
 
 @test:Config {groups: ["mock_tests"]}
-function testGetLeadNotFound() returns error? {
+function testGetLeadWithoutName() returns error? {
+    GetLeadResponse response = check apideck->getLead("lead_001", {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, fields = "id,status");
+    test:assertEquals(response.data.id, "lead_001");
+    test:assertEquals(response.data?.name, ());
+}
+
+@test:Config {groups: ["mock_tests"]}
+function testGetLeadNotFound() {
     GetLeadResponse|error response = apideck->getLead("missing", {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
-    test:assertTrue(response is error);
+    assertNotFound(response);
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testCreateLead() returns error? {
-    CreateLeadResponse response = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {
+    string id = check createTestLead({
         name: "Ada Lovelace",
         firstName: "Ada",
         lastName: "Lovelace",
         companyName: "Analytical Engines",
         emails: [{email: "ada@example.com", 'type: "work"}]
     });
-    test:assertTrue(response.data.id != "");
-    if isLiveServer {
-        _ = check apideck->deleteLead(response.data.id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+    test:assertTrue(id != "");
+    if !isLiveServer {
+        GetLeadResponse fetched = check apideck->getLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+        test:assertEquals(fetched.data?.name, "Ada Lovelace");
     }
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testUpdateLead() returns error? {
-    string id = "lead_001";
-    if isLiveServer {
-        CreateLeadResponse created = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {name: "Update Target"});
-        id = created.data.id;
-    }
+    string id = isLiveServer ? check createTestLead({name: "Update Target"}) : "lead_001";
     UpdateLeadResponse response = check apideck->updateLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {name: "Updated Name", title: "Director"});
     test:assertEquals(response.data.id, id);
-    if isLiveServer {
-        _ = check apideck->deleteLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+    if !isLiveServer {
+        GetLeadResponse fetched = check apideck->getLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+        test:assertEquals(fetched.data?.name, "Updated Name");
+        test:assertEquals(fetched.data?.title, "Director");
     }
 }
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testDeleteLead() returns error? {
-    string id = "lead_002";
+    CreateLeadResponse created = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {name: "Delete Target"});
+    string id = created.data.id;
     if isLiveServer {
-        CreateLeadResponse created = check apideck->createLead({authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId}, {name: "Delete Target"});
-        id = created.data.id;
+        createdLeadIds.push(id);
     }
     DeleteLeadResponse response = check apideck->deleteLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
     test:assertEquals(response.data.id, id);
+    if !isLiveServer {
+        GetLeadResponse|error afterDelete = apideck->getLead(id, {authorization: apiKey, xApideckConsumerId: consumerId, xApideckAppId: appId});
+        assertNotFound(afterDelete);
+    }
 }

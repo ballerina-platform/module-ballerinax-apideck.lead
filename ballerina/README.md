@@ -78,5 +78,5 @@ bal run
 
 The `Apideck Lead` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-apideck.lead/tree/main/examples/), covering the following use cases:
 
-- [lead_capture_workflow](../examples/lead_capture_workflow/lead_capture_workflow.md) - Capture a new lead, read it back and move it to the Contacted status.
-- [stale_lead_cleanup](../examples/stale_lead_cleanup/stale_lead_cleanup.md) - List leads and remove those in a stale status, with a dry-run by default.
+- [lead_capture_workflow](https://github.com/ballerina-platform/module-ballerinax-apideck.lead/tree/main/examples/lead_capture_workflow) - Capture a new lead, read it back and move it to the Contacted status.
+- [stale_lead_cleanup](https://github.com/ballerina-platform/module-ballerinax-apideck.lead/tree/main/examples/stale_lead_cleanup) - List leads and remove those in a stale status, with a dry-run by default.

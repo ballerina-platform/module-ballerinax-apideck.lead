@@ -2455,9 +2455,6 @@
                 ]
             },
             "Lead": {
-                "required": [
-                    "name"
-                ],
                 "type": "object",
                 "properties": {
                     "addresses": {

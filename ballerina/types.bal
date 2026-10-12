@@ -335,7 +335,7 @@ public type Lead record {|
     @jsondata:Name {value: "company_name"}
     string? companyName?;
     # Full name of the lead
-    string name;
+    string name?;
     Website[] websites?;
     string? status?;
 |};
