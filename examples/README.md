@@ -2,13 +2,14 @@
 
 The `ballerinax/apideck.lead` connector provides practical examples illustrating usage in various scenarios.
 
-[//]: # (TODO: Add examples)
-1. 
-2. 
+1. [lead_capture_workflow](./lead_capture_workflow/lead_capture_workflow.md) - Capture a lead, read it back and mark it as contacted.
+2. [stale_lead_cleanup](./stale_lead_cleanup/stale_lead_cleanup.md) - List leads and delete those in a stale status, with a dry run by default.
 
 ## Prerequisites
 
-[//]: # (TODO: Add prerequisites)
+- An Apideck account with a Unify application, a secret API key and a consumer that has an activated CRM integration.
+- Ballerina Swan Lake 2201.12.0 or later.
+- A `Config.toml` in each example directory containing `apiKey`, `appId` and `consumerId`, as described in the example's own guide.
 
 ## Running an example
 
